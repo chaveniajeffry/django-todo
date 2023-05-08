@@ -4,3 +4,13 @@ from django.http import HttpResponse
 
 def home(request):
     return HttpResponse("Hello, world. You're at the base todo home.")
+
+
+def createTodo(request):
+    pass
+def readTodo(request):
+    pass
+def updateTodo(request):
+    pass
+def deleteTodo(request):
+    pass
