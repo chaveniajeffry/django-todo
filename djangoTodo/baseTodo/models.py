@@ -10,11 +10,11 @@ class Todo(models.Model):
     when_updated = models.PositiveIntegerField(blank=True, null=True)
     
     class Meta:
-        db_name = 'todo'
+        db_table = 'todo'
         
 class RecentActivity(models.Model):
     who_added = models.PositiveIntegerField()
-    when_added = models.PositiveIntegerField()
+    when_added = models.PositiveIntegerField(default=int(timezone.now().timestamp()))
     action = models.CharField(max_length=255)
     page_id = models.PositiveIntegerField()
     obj_id = models.PositiveIntegerField()
