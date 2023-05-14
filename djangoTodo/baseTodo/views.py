@@ -7,13 +7,14 @@ def home(request):
 
 
 def createTodo(request):
-    pass
+    if request.method == "POST":
+        task = request.POST.get("todo").lower()
 def readTodo(request):
     todos = Todo.objects.all()
     context = {
         'todos': todos
     }
-    return render(request, "base/home.html",context)
+    return render(request, "baseTodo/home.html",context)
 def updateTodo(request):
     pass
 def deleteTodo(request):
