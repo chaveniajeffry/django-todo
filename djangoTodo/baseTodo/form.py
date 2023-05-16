@@ -1,7 +1,9 @@
 from django import forms
+from django.forms import ModelForm
 from .models import Todo, RecentActivity
 
-class TodoForm(forms.Form):
+class TodoForm(ModelForm):
+    
     class Meta:
         model = Todo
         fields = [
