@@ -39,5 +39,13 @@ def readTodo(request):
     return render(request, "baseTodo/home.html",context)
 def updateTodo(request):
     pass
-def deleteTodo(request):
-    pass
+def deleteTodo(request, pk):
+    task = Todo.objects.get(id=pk)
+    task.delete()
+    todos = Todo.objects.all()
+    form = TodoForm()
+    context = {
+        'todos': todos,
+        'form': form,
+    }
+    return render(request, "baseTodo/home.html",context)

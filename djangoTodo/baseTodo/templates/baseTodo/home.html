@@ -11,6 +11,7 @@
         <p>Task Name: {{todo.task_name}}</p>
         <p>When Added: {{todo.when_added}}</p>
         <p>Status: {{todo.status}}</p>
+        <p><a href="{% url 'delete-todo' todo.id %}">Delete</a></p>
     {% endfor %}
     <form action="" method="post">
         {% csrf_token %}
