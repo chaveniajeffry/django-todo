@@ -9,29 +9,22 @@ def home(request):
 
 def createTodo(request):
     if request.method == "POST":
-        print(request.POST.get("status"))
         task = request.POST.get("task_name")
         when_added = request.POST.get("when_added")
-        # status = request.POST.get("status")
+        status = False
+        if request.POST.get("status"):
+            if request.POST.get("status") == "on":
+                status = True
         Todo.objects.create(
             task_name=task,
             when_added=when_added,
-            # status=status,
+            status=status,
         )
-        return readTodo(request)
+        return redirect("home")
 def readTodo(request):
     todos = Todo.objects.all()
     form = TodoForm()
-    if request.method == "POST":
-        print(request.POST)
-        task = request.POST.get("task_name")
-        when_added = request.POST.get("when_added")
-        # status = request.POST.get("status")
-        Todo.objects.create(
-            task_name=task,
-            when_added=when_added,
-            # status=status,
-        )
+    
     context = {
         'todos': todos,
         'form': form,
@@ -60,4 +53,4 @@ def deleteTodo(request, pk):
         'todos': todos,
         'form': form,
     }
-    return render(request, "baseTodo/home.html",context)
+    return redirect("home")
