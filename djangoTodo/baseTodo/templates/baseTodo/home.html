@@ -9,7 +9,7 @@
 <body>
     {% for todo in todos %}
         <p>Task Name: {{todo.task_name}}</p>
-        <p>When Added: {{todo.when_added}}</p>
+        <p>When Added: <span class="local-date-format">{{todo.when_added}}</span></p>
         <p>Status: {{todo.status}}</p>
         <p><a href="{% url 'update-todo' todo.id %}">Edit</a></p>
         <p><a href="{% url 'delete-todo' todo.id %}">Delete</a></p>
@@ -19,5 +19,31 @@
         {{ form }}
         <input type="submit" value="Submit">
     </form>
+    <script>
+        //local date and time format
+        date_length = document.querySelectorAll(".local-date-format")
+        date_length.forEach((item, index) => {
+            let formatted_date = new Date((item.textContent * 1000))
+            let date = formatted_date.toLocaleDateString()
+            let time = formatted_date.toLocaleTimeString()
+            let new_start_date = new Date(date)
+            var new_day = ""
+            var new_month = ""
+            //day
+            if (new_start_date.getDate().toString().length == 1) {
+                new_day = "0" + new_start_date.getDate()
+            } else {
+                new_day = new_start_date.getDate()
+            }
+            //month
+            if (new_start_date.getMonth() < 9) {
+                new_month = "0" + (parseInt(new_start_date.getMonth()) + 1)
+            } else {
+                new_month = parseInt(new_start_date.getMonth()) + 1
+            }
+            formatted_search_query_start_date = new_month + "/" + new_day + "/" + new_start_date.getFullYear()
+            item.textContent = formatted_search_query_start_date + " " + time
+        });
+    </script>
 </body>
 </html>
