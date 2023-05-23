@@ -5,6 +5,34 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo</title>
+    <style>
+        #calendar {
+            font-family: Arial, sans-serif;
+          }
+          
+          table {
+            border-collapse: collapse;
+            width: 100%;
+          }
+          
+          th, td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+          }
+          
+          th {
+            background-color: #f2f2f2;
+          }
+          
+          td {
+            cursor: pointer;
+          }
+          
+          td:hover {
+            background-color: #f2f2f2;
+          }
+    </style>
 </head>
 <body>
     {% for todo in todos %}
@@ -19,6 +47,8 @@
         {{ form }}
         <input type="submit" value="Submit">
     </form>
+    <div id="calendar"></div>
+    <script src="calendar.js"></script>
     <script>
         //local date and time format
         date_length = document.querySelectorAll(".local-date-format")
@@ -44,6 +74,58 @@
             formatted_search_query_start_date = new_month + "/" + new_day + "/" + new_start_date.getFullYear()
             item.textContent = formatted_search_query_start_date + " " + time
         });
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarDiv = document.getElementById("calendar");
+          
+            // Create table element
+            var table = document.createElement('table');
+          
+            // Create table header (weekdays)
+            var weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            var headerRow = document.createElement('tr');
+            weekdays.forEach(function(day) {
+              var th = document.createElement('th');
+              th.appendChild(document.createTextNode(day));
+              headerRow.appendChild(th);
+            });
+            table.appendChild(headerRow);
+          
+            // Create table cells (dates)
+            var currentDate = new Date();
+            var currentMonth = currentDate.getMonth();
+            var currentYear = currentDate.getFullYear();
+          
+            var firstDay = new Date(currentYear, currentMonth, 1);
+            var lastDay = new Date(currentYear, currentMonth + 1, 0);
+          
+            var startDate = new Date(firstDay);
+            startDate.setDate(firstDay.getDate() - firstDay.getDay()); // Set start date to Sunday of the first week
+          
+            var endDate = new Date(lastDay);
+            endDate.setDate(lastDay.getDate() + (6 - lastDay.getDay())); // Set end date to Saturday of the last week
+          
+            var currentDate = new Date(startDate);
+          
+            while (currentDate <= endDate) {
+              var row = document.createElement('tr');
+          
+              for (var i = 0; i < 7; i++) {
+                var cell = document.createElement('td');
+          
+                if (currentDate.getMonth() == currentMonth) {
+                  cell.appendChild(document.createTextNode(currentDate.getDate()));
+                }
+          
+                row.appendChild(cell);
+                currentDate.setDate(currentDate.getDate() + 1);
+              }
+          
+              table.appendChild(row);
+            }
+          
+            // Append the table to the calendar div
+            calendarDiv.appendChild(table);
+          });
     </script>
 </body>
 </html>
