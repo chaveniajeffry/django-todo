@@ -1,0 +1,29 @@
+#calendar {
+    font-family: Arial, sans-serif;
+  }
+  
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  th, td {
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
+  td {
+    cursor: pointer;
+  }
+  
+  td:hover {
+    background-color: #f2f2f2;
+  }
+  td#today {
+      background: #5050504f;
+  }
