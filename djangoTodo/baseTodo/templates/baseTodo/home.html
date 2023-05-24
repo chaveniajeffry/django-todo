@@ -32,6 +32,9 @@
           td:hover {
             background-color: #f2f2f2;
           }
+          td#today {
+              background: #5050504f;
+          }
     </style>
 </head>
 <body>
@@ -92,6 +95,7 @@
           
             // Create table cells (dates)
             var currentDate = new Date();
+            var today = currentDate
             var currentMonth = currentDate.getMonth();
             var currentYear = currentDate.getFullYear();
           
@@ -103,7 +107,6 @@
           
             var endDate = new Date(lastDay);
             endDate.setDate(lastDay.getDate() + (6 - lastDay.getDay())); // Set end date to Saturday of the last week
-          
             var currentDate = new Date(startDate);
           
             while (currentDate <= endDate) {
@@ -114,6 +117,9 @@
           
                 if (currentDate.getMonth() == currentMonth) {
                   cell.appendChild(document.createTextNode(currentDate.getDate()));
+                  if(currentDate.getDate() == today.getDate()){
+                    cell.id= "today"
+                  }
                 }
           
                 row.appendChild(cell);
