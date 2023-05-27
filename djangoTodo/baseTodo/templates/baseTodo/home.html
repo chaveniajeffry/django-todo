@@ -9,31 +9,41 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <table>
-        <tr>
-            <td>Task Name</td>
-            <td>When Added</td>
-            <td>Status</td>
-            <td colspan="2">Action</td>
-        </tr>
-    {% for todo in todos %}
-    
-        <tr>
-            <td>{{todo.task_name}}</td>
-            <td><span class="local-date-format">{{todo.when_added}}</span></td>
-            <td>{{todo.status}}</td>
-            <td><a href="{% url 'update-todo' todo.id %}">Edit</a></td>
-            <td><a href="{% url 'delete-todo' todo.id %}">Delete</a></td>
-        </tr>
-    
-    {% endfor %}
-    </table>
-    <form action="{% url 'create-todo' %}" method="post">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Submit">
-    </form>
-    <div id="calendar"></div>
+    <div id="mainContainer">
+        <div id="visualContainer">
+            <div id="taskContainer">
+                <table>
+                    <tr>
+                        <td>Task Name</td>
+                        <td>When Added</td>
+                        <td>Status</td>
+                        <td colspan="2">Action</td>
+                    </tr>
+                    {% for todo in todos %}
+                    
+                        <tr>
+                            <td>{{todo.task_name}}</td>
+                            <td><span class="local-date-format">{{todo.when_added}}</span></td>
+                            <td>{{todo.status}}</td>
+                            <td><a href="{% url 'update-todo' todo.id %}">Edit</a></td>
+                            <td><a href="{% url 'delete-todo' todo.id %}">Delete</a></td>
+                        </tr>
+                    
+                    {% endfor %}
+                </table>
+            </div>
+            <div id="calendarContainer">
+                <div id="calendar"></div>
+            </div>
+        </div>
+        <div id="addTaskContainer">
+            <form action="{% url 'create-todo' %}" method="post">
+                {% csrf_token %}
+                {{ form }}
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
     <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>
