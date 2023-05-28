@@ -62,6 +62,18 @@ document.addEventListener('DOMContentLoaded', function() {
   
         if (currentDate.getMonth() == currentMonth) {
           cell.appendChild(document.createTextNode(currentDate.getDate()));
+          date_length = document.querySelectorAll(".local-date-format")
+          date_length.forEach((item, index) => {
+            let new_start_date = new Date(item.textContent)
+            var new_day = ""
+            var new_month = ""
+            //day
+            console.log(new_start_date.getDate())
+            console.log(currentDate.getDate())
+              if (new_start_date.getDate() == currentDate.getDate()) {
+                cell.id= "one"
+              }
+          })
           if(currentDate.getDate() == today.getDate()){
             cell.id= "today"
           }
