@@ -39,7 +39,10 @@
         <div id="addTaskContainer">
             <form action="{% url 'create-todo' %}" method="post">
                 {% csrf_token %}
-                {{ form }}
+                
+                {{form.task_name.label}}
+                {{form.task_name}}
+                
                 <input type="submit" value="Submit">
             </form>
         </div>
