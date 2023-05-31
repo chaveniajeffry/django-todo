@@ -9,7 +9,11 @@
 <body>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form.id }}
+        {{ form.task_name.label }}
+        {{ form.task_name }}
+        {{ form.status.label }}
+        {{ form.status }}
         <input type="submit" value="Save">
     </form>      
 </body>
