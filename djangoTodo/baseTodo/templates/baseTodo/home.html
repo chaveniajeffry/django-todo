@@ -22,11 +22,20 @@
                     {% for todo in todos %}
                     
                         <tr>
+                            {% if todo.status == "done" %}
+                            <td class="done">{{todo.task_name}}</td>
+                            <td class="done"><span class="local-date-format">{{todo.when_added}}</span></td>
+                            <td class="done">{{todo.status}}</td>
+                            <td class="done">Edit</td>
+                            <td class="done">Delete</td>
+                            {% else %}
                             <td>{{todo.task_name}}</td>
                             <td><span class="local-date-format">{{todo.when_added}}</span></td>
                             <td>{{todo.status}}</td>
                             <td><a href="{% url 'update-todo' todo.id %}">Edit</a></td>
                             <td><a href="{% url 'delete-todo' todo.id %}">Delete</a></td>
+                            {% endif %}
+                            
                         </tr>
                     
                     {% endfor %}

@@ -40,3 +40,8 @@ td#one {
 td#today {
     background: #5050504f;
 }
+
+.done{
+  text-decoration: line-through;
+  cursor: not-allowed;
+}
