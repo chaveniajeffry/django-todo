@@ -22,70 +22,142 @@ date_length.forEach((item, index) => {
     formatted_search_query_start_date = new_month + "/" + new_day + "/" + new_start_date.getFullYear()
     item.textContent = formatted_search_query_start_date + " " + time
 });
+// document.addEventListener('DOMContentLoaded', function() {
+//     var calendarDiv = document.getElementById("calendar");
+  
+//     // Create table element
+//     var table = document.createElement('table');
+  
+//     // Create table header (weekdays)
+//     var weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+//     var headerRow = document.createElement('tr');
+//     weekdays.forEach(function(day) {
+//       var th = document.createElement('th');
+//       th.appendChild(document.createTextNode(day));
+//       headerRow.appendChild(th);
+//     });
+//     table.appendChild(headerRow);
+  
+//     // Create table cells (dates)
+//     var currentDate = new Date();
+//     var today = currentDate
+//     var currentMonth = currentDate.getMonth();
+//     var currentYear = currentDate.getFullYear();
+  
+//     var firstDay = new Date(currentYear, currentMonth, 1);
+//     var lastDay = new Date(currentYear, currentMonth + 1, 0);
+  
+//     var startDate = new Date(firstDay);
+//     startDate.setDate(firstDay.getDate() - firstDay.getDay()); // Set start date to Sunday of the first week
+  
+//     var endDate = new Date(lastDay);
+//     endDate.setDate(lastDay.getDate() + (6 - lastDay.getDay())); // Set end date to Saturday of the last week
+//     var currentDate = new Date(startDate);
+  
+//     while (currentDate <= endDate) {
+//       var row = document.createElement('tr');
+  
+//       for (var i = 0; i < 7; i++) {
+//         var cell = document.createElement('td');
+  
+//         if (currentDate.getMonth() == currentMonth) {
+//           cell.appendChild(document.createTextNode(currentDate.getDate()));
+//           date_length = document.querySelectorAll(".local-date-format")
+//           date_length.forEach((item, index) => {
+//             let new_start_date = new Date(item.textContent)
+//             var new_day = ""
+//             var new_month = ""
+//             //day
+//             console.log(new_start_date.getDate())
+//             console.log(currentDate.getDate())
+//               if (new_start_date.getDate() == currentDate.getDate()) {
+//                 cell.id= "one"
+//               }
+//           })
+//           if(currentDate.getDate() == today.getDate()){
+//             cell.id= "today"
+//           }
+//         }
+  
+//         row.appendChild(cell);
+//         currentDate.setDate(currentDate.getDate() + 1);
+//       }
+  
+//       table.appendChild(row);
+//     }
+  
+//     // Append the table to the calendar div
+//     calendarDiv.appendChild(table);
+//   });
 document.addEventListener('DOMContentLoaded', function() {
-    var calendarDiv = document.getElementById("calendar");
-  
-    // Create table element
+  var calendarDiv = document.getElementById("calendar");
+
+  // Create table for each month
+  for (var month = 0; month < 12; month++) {
     var table = document.createElement('table');
-  
-    // Create table header (weekdays)
-    var weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+    // Create table header (month and weekdays)
+    var monthName = new Date(new Date().getFullYear(), month).toLocaleString('default', { month: 'long' });
     var headerRow = document.createElement('tr');
+    var monthHeader = document.createElement('th');
+    monthHeader.setAttribute('colspan', '7');
+    monthHeader.textContent = monthName;
+    headerRow.appendChild(monthHeader);
+    table.appendChild(headerRow);
+
+    var weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    var weekdaysRow = document.createElement('tr');
     weekdays.forEach(function(day) {
       var th = document.createElement('th');
       th.appendChild(document.createTextNode(day));
-      headerRow.appendChild(th);
+      weekdaysRow.appendChild(th);
     });
-    table.appendChild(headerRow);
-  
+    table.appendChild(weekdaysRow);
+
     // Create table cells (dates)
     var currentDate = new Date();
     var today = currentDate
-    var currentMonth = currentDate.getMonth();
-    var currentYear = currentDate.getFullYear();
-  
-    var firstDay = new Date(currentYear, currentMonth, 1);
-    var lastDay = new Date(currentYear, currentMonth + 1, 0);
-  
+    var currentYear = new Date().getFullYear();
+    var firstDay = new Date(currentYear, month, 1);
+    var lastDay = new Date(currentYear, month + 1, 0);
+
     var startDate = new Date(firstDay);
     startDate.setDate(firstDay.getDate() - firstDay.getDay()); // Set start date to Sunday of the first week
-  
+
     var endDate = new Date(lastDay);
     endDate.setDate(lastDay.getDate() + (6 - lastDay.getDay())); // Set end date to Saturday of the last week
+
     var currentDate = new Date(startDate);
-  
+
     while (currentDate <= endDate) {
       var row = document.createElement('tr');
-  
+
       for (var i = 0; i < 7; i++) {
         var cell = document.createElement('td');
-  
-        if (currentDate.getMonth() == currentMonth) {
+
+        if (currentDate.getMonth() == month) {
           cell.appendChild(document.createTextNode(currentDate.getDate()));
           date_length = document.querySelectorAll(".local-date-format")
           date_length.forEach((item, index) => {
             let new_start_date = new Date(item.textContent)
-            var new_day = ""
-            var new_month = ""
-            //day
-            console.log(new_start_date.getDate())
-            console.log(currentDate.getDate())
-              if (new_start_date.getDate() == currentDate.getDate()) {
+            
+              if (new_start_date.getDate() == currentDate.getDate() && new_start_date.getMonth() == currentDate.getMonth()) {
                 cell.id= "one"
               }
           })
-          if(currentDate.getDate() == today.getDate()){
+          if(currentDate.getDate() == today.getDate() && currentDate.getMonth() == today.getMonth()){
             cell.id= "today"
           }
         }
-  
+
         row.appendChild(cell);
         currentDate.setDate(currentDate.getDate() + 1);
       }
-  
+
       table.appendChild(row);
     }
-  
+
     // Append the table to the calendar div
     calendarDiv.appendChild(table);
-  });
+  }
+});
