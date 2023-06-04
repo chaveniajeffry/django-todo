@@ -8,10 +8,6 @@
 #calendar {
   font-family: Arial, sans-serif;
 }
-#visualContainer{
-  display: flex;
-
-}
 table {
   border-collapse: collapse;
   width: 100%;
@@ -44,4 +40,21 @@ td#today {
 .done{
   text-decoration: line-through;
   cursor: not-allowed;
+}
+
+.calendar-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px;
+}
+
+.calendar-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 8px;
+  text-align: center;
+  border: 1px solid #ddd;
 }
