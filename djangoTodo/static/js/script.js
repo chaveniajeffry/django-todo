@@ -98,6 +98,9 @@ date_length.forEach((item, index) => {
 document.addEventListener('DOMContentLoaded', function() {
   var calendarDiv = document.getElementById("calendar");
 
+  // Create the year container for the calendar
+  var yearContainer = document.createElement('div');
+  yearContainer.id = "yearContainer"
   // Create main container for the calendar
   var calendarContainer = document.createElement('div');
   calendarContainer.className = 'calendar-container';
@@ -105,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Create tables for each month
   var currentYear = new Date().getFullYear();
   var monthCount = 0;
-
+  yearContainer.innerHTML = currentYear
   for (var row = 0; row < 4; row++) {
     for (var col = 0; col < 12; col++) {
       var table = document.createElement('table');
@@ -179,5 +182,6 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // Append the calendar container to the calendar div
+  calendarDiv.appendChild(yearContainer);
   calendarDiv.appendChild(calendarContainer);
 });
