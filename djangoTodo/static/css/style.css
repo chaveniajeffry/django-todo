@@ -27,9 +27,6 @@ td {
   cursor: pointer;
 }
 
-td:hover {
-  background-color: #f2f2f2;
-}
 td#one {
   background: #e68080;
 }
@@ -66,4 +63,7 @@ th, td {
   border: 1px solid #ddd;
   background: #f2f2f2;
   margin: 20px 0;
+}
+#taskHeader{
+  background: #c9eefe;
 }
