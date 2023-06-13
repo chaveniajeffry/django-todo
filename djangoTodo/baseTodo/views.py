@@ -3,12 +3,29 @@ from django.http import HttpResponse
 # Create your views here.
 from .models import Todo, RecentActivity
 from .form import TodoForm
-from datetime import datetime
+import datetime
+def change_task_status(task_timestamp, status):
+    # Add 8 hours to the task timestamp
+    task_datetime = datetime.datetime.fromtimestamp(task_timestamp)
+    task_datetime += datetime.timedelta(hours=8)
+
+    # Get the current date and time
+    current_time = datetime.datetime.now() + datetime.timedelta(hours=8)
+    current_date = current_time.date()
+
+    # Get the date from the task datetime
+    task_date = task_datetime.date()
+    # Compare the task date with the current date and the status
+    if task_date < current_date and str(status).lower() == "new":
+        # Task is in the past and new, change the status
+        return True
+    else:
+        return False
 
 def createTodo(request):
     if request.method == "POST":
         task = request.POST.get("task_name")
-        when_added = int(datetime.today().timestamp())
+        when_added = int(datetime.datetime.today().timestamp())
         status = "New"
         Todo.objects.create(
             task_name=task,
@@ -19,10 +36,12 @@ def createTodo(request):
 def readTodo(request):
     todos = Todo.objects.all()
     form = TodoForm()
+    utc_timestamp_now = int(datetime.datetime.today().timestamp())
     for todo in todos:
-        if int(todo.when_added) < int(datetime.today().timestamp()) and todo.status == "new":
-            todo.status = "did not do"
-            todo.save()
+        if(change_task_status(int(todo.when_added), todo.status)):
+            todo_data = Todo.objects.get(id=todo.id)
+            todo_data.status = "did not do"
+            todo_data.save()
     context = {
         'todos': todos,
         'form': form,
@@ -32,17 +51,10 @@ def updateTodo(request,pk):
     task = get_object_or_404(Todo, id=pk)
     form = TodoForm(instance=task)
     if request.method == 'POST':
-        print(request.POST)
         status = request.POST.get('status')
         task.status = status
         task.save()
         return redirect("home")
-    #     form = TodoForm(request.POST, instance=task)
-    #     if form.is_valid():
-    #         form.save()
-    #         return redirect('home')
-    # else:
-    #     form = TodoForm(instance=task)
     context = {
         'todos': task,
         'form': form,
