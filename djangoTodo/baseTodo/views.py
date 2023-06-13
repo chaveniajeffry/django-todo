@@ -3,15 +3,12 @@ from django.http import HttpResponse
 # Create your views here.
 from .models import Todo, RecentActivity
 from .form import TodoForm
-import datetime
-def home(request):
-    return HttpResponse("Hello, world. You're at the base todo home.")
-
+from datetime import datetime
 
 def createTodo(request):
     if request.method == "POST":
         task = request.POST.get("task_name")
-        when_added = int(datetime.datetime.today().timestamp())
+        when_added = int(datetime.today().timestamp())
         status = "New"
         Todo.objects.create(
             task_name=task,
@@ -22,7 +19,10 @@ def createTodo(request):
 def readTodo(request):
     todos = Todo.objects.all()
     form = TodoForm()
-    
+    for todo in todos:
+        if int(todo.when_added) < int(datetime.today().timestamp()) and todo.status == "new":
+            todo.status = "did not do"
+            todo.save()
     context = {
         'todos': todos,
         'form': form,

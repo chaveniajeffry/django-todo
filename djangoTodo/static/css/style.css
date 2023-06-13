@@ -35,6 +35,7 @@ td#today {
 }
 
 .done{
+  color: green;
   text-decoration: line-through;
   cursor: not-allowed;
 }
@@ -66,4 +67,10 @@ th, td {
 }
 #taskHeader{
   background: #c9eefe;
+}
+
+.did-not-do{
+  color: red;
+  text-decoration: line-through;
+  cursor: not-allowed;
 }

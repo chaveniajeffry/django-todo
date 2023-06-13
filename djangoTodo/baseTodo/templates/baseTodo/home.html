@@ -26,8 +26,12 @@
                             <td class="done">{{todo.task_name}}</td>
                             <td class="done"><span class="local-date-format">{{todo.when_added}}</span></td>
                             <td class="done">{{todo.status}}</td>
-                            <td class="done">Edit</td>
-                            <td class="done">Delete</td>
+                            <td colspan="2" class="done">None</td>
+                            {% elif todo.status == "Did not do"%}
+                            <td class="did-not-do">{{todo.task_name}}</td>
+                            <td class="did-not-do"><span class="local-date-format">{{todo.when_added}}</span></td>
+                            <td class="did-not-do">{{todo.status}}</td>
+                            <td colspan="2"  class="did-not-do">None</td>
                             {% else %}
                             <td>{{todo.task_name}}</td>
                             <td><span class="local-date-format">{{todo.when_added}}</span></td>
