@@ -70,7 +70,7 @@ th, td {
 }
 
 .did-not-do{
-  color: red;
+  color: rgb(138, 22, 22);
   text-decoration: line-through;
   cursor: not-allowed;
 }
