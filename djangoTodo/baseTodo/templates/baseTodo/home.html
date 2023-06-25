@@ -64,65 +64,38 @@
     <div id="container"></div>
     <script src="{% static 'js/script.js' %}"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <script>
-        Highcharts.chart('container', {
-    chart: {
-        type: 'area'
-    },
-    title: {
-        text: 'Greenhouse gases from Norwegian economic activity',
-        align: 'left'
-    },
-    subtitle: {
-        text: 'Source: ' +
-            '<a href="https://www.ssb.no/en/statbank/table/09288/"' +
-            'target="_blank">SSB</a>',
-        align: 'left'
-    },
-    yAxis: {
-        title: {
-            useHTML: true,
-            text: 'Million tonnes CO<sub>2</sub>-equivalents'
+        function sumByDate(tableData) {
+      const sumsByDate = {};
+
+      for (let i = 0; i < tableData.length; i++) {
+        const date = tableData[i];
+
+        if (sumsByDate[date]) {
+          sumsByDate[date]++;
+        } else {
+          sumsByDate[date] = 1;
         }
-    },
-    tooltip: {
-        shared: true,
-        headerFormat: '<span style="font-size:12px"><b>{point.key}</b></span><br>'
-    },
-    plotOptions: {
-        series: {
-            pointStart: 2012
-        },
-        area: {
-            stacking: 'normal',
-            lineColor: '#666666',
-            lineWidth: 1,
-            marker: {
-                lineWidth: 1,
-                lineColor: '#666666'
-            }
-        }
-    },
-    series: [{
-        name: 'Ocean transport',
-        data: [13234, 12729, 11533, 17798, 10398, 12811, 15483, 16196, 16214]
-    }, {
-        name: 'Households',
-        data: [6685, 6535, 6389, 6384, 6251, 5725, 5631, 5047, 5039]
+      }
 
-    }, {
-        name: 'Agriculture and hunting',
-        data: [4752, 4820, 4877, 4925, 5006, 4976, 4946, 4911, 4913]
-    }, {
-        name: 'Air transport',
-        data: [3164, 3541, 3898, 4115, 3388, 3569, 3887, 4593, 1550]
+      return sumsByDate;
+    }
 
-    }, {
-        name: 'Construction',
-        data: [2019, 2189, 2150, 2217, 2175, 2257, 2344, 2176, 2186]
-    }]
-});
+    // Example usage:
+    let tableData = []
+    all_dates = document.querySelectorAll(".local-date-format")
+    console.log(all_dates)
+    all_dates.forEach(element => {
+        date_format = Date.parse(element.textContent)
+        date_format_new = new Date(date_format)
+        console.log(date_format_new)
+        // tableData.push(date_format)
+    });
+    // const tableData = ['2023-06-23T08:30', '2023-06-24T11:15', '2023-06-23T14:45', '2023-06-24T09:00', '2023-06-24T16:20'];
 
+    const result = sumByDate(tableData);
+    console.log(result)
     </script>
 </body>
 </html>
