@@ -1,3 +1,8 @@
+body{
+  padding: 0;
+  margin: 0;
+  background: #00000026;
+}
 #mainContainer{
   display: flex;
   align-items: center;
@@ -28,10 +33,10 @@ td {
 }
 
 td#one {
-  background: #c4fc9e;
+  background: #c4fc9e; 
 }
 td#today {
-    background: #5050504f;
+  background: #5050504f;
 }
 
 .done{
@@ -45,6 +50,9 @@ td#today {
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 20px;
 }
+.month-header {
+  background: slategray;
+}
 
 .calendar-table {
   width: 100%;
@@ -54,7 +62,7 @@ td#today {
 th, td {
   padding: 8px;
   text-align: center;
-  border: 1px solid #ddd;
+  border: 1px solid #a9a9a9;
 }
 #yearContainer{
   display: flex;
@@ -62,15 +70,32 @@ th, td {
   align-items: center;
   padding: 8px 20%;
   border: 1px solid #ddd;
-  background: #f2f2f2;
   margin: 20px 0;
+  background: slategray;
+  font-weight: bold;
 }
-#taskHeader{
-  background: #c9eefe;
+#taskHeader {
+  background: slategray;
+  font-weight: bold;
 }
 
 .did-not-do{
   color: rgb(138, 22, 22);
   text-decoration: line-through;
   cursor: not-allowed;
+}
+.weekdays{
+  background: #708090a6;
+}
+.task-level-one{
+  background: rgb(100 255 0 / 25%);
+}
+.task-level-two{
+  background: rgb(100 255 0 / 50%);
+}
+.task-level-three{
+  background: rgb(100 255 0 / 75%);
+}
+.task-level-four{
+  background: rgb(100 255 0);
 }

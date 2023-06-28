@@ -62,68 +62,8 @@
         
     </div>
     <div id="chartContainer"></div>
-    <script src="{% static 'js/script.js' %}"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-    <script>
-        function sumByDate(tableData) {
-      const sumsByDate = {};
-
-      for (let i = 0; i < tableData.length; i++) {
-        const date = tableData[i];
-
-        if (sumsByDate[date]) {
-          sumsByDate[date]++;
-        } else {
-          sumsByDate[date] = 1;
-        }
-      }
-
-      return sumsByDate;
-    }
-
-    // Example usage:
-    let tableData = []
-    all_dates = document.querySelectorAll(".local-date-format")
-    console.log(all_dates)
-    all_dates.forEach(element => {
-        date_format = new Date(element.textContent)
-        tableData.push(date_format.toLocaleDateString())
-    });
-    const result = sumByDate(tableData);
-    
-    // Convert result object to array of [date, count] pairs
-    const data = Object.entries(result);
-
-    // Prepare the data for Highcharts series
-    const seriesData = data.map(([date, count]) => [Date.parse(date), count]);
-
-    // Create the Highcharts chart
-    Highcharts.chart('chartContainer', {
-      chart: {
-        type: 'area'
-      },
-      title: {
-        text: 'Date Counts'
-      },
-      xAxis: {
-        type: 'datetime',
-        title: {
-          text: 'Date'
-        }
-      },
-      yAxis: {
-        title: {
-          text: 'Count'
-        }
-      },
-      series: [{
-        name: 'Count',
-        data: seriesData,
-        pointStart: Date.parse(tableData[0].split('T')[0]), // Specify the starting date of the x-axis
-        pointInterval: 24 * 3600 * 1000 // Set the interval to 1 day (24 hours)
-      }]
-    });
-    </script>
+    <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>
