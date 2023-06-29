@@ -1,6 +1,6 @@
 from django.shortcuts import render,get_object_or_404, redirect
 from django.http import HttpResponse
-# Create your views here.
+from django.core.paginator import Paginator
 from .models import Todo, RecentActivity
 from .form import TodoForm
 import datetime
@@ -42,8 +42,11 @@ def readTodo(request):
             todo_data = Todo.objects.get(id=todo.id)
             todo_data.status = "did not do"
             todo_data.save()
+    paginator = Paginator(todos, 5)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
     context = {
-        'todos': todos,
+        'todos': page_obj,
         'form': form,
     }
     return render(request, "baseTodo/home.html",context)
